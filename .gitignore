@@ -17,8 +17,5 @@ Dockerfile
 # links
 links.txt
 
-#gits
-.git*
-
 #ipy
 *.ipynb
