@@ -1,0 +1,15 @@
+__pycache__/
+
+# TensorBoard Files
+events.out.tfevents.*
+
+# models saved
+*.pt
+
+# docker
+.dockerignore
+*.yml
+Dockerfile
+
+# pdf
+*.pdf

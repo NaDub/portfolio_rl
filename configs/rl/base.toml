@@ -1,0 +1,41 @@
+# ==== Environment ====
+env = "Pendulum-v1"
+window_length = 1
+max_episode_length = 500
+seed = -1
+
+# ==== Noise ====
+ou_theta = 0.15
+ou_sigma = 0.2
+ou_mu = 0.0
+
+# ==== Model ====
+hidden1 = 400
+hidden2 = 300
+init_w = 0.003
+
+# ==== Optimization ====
+rate = 0.001         # critic learning rate
+prate = 0.0001       # actor (policy) learning rate
+discount = 0.99
+tau = 0.001          # target network update rate
+
+# ==== Training ====
+mode = "train"       # options: train / test
+train_iter = 200000
+warmup = 100
+bsize = 64
+rmsize = 6000000     # replay memory size
+epsilon = 50000      # linear decay of exploration policy
+
+# ==== Validation ====
+validate_episodes = 20
+validate_steps = 2000
+
+# ==== Output ====
+output = "output"
+resume = "default"
+debug = false
+
+# parser.add_argument('--l2norm', default=0.01, type=float, help='l2 weight decay') # TODO
+# parser.add_argument('--cuda', dest='cuda', action='store_true') # TODO

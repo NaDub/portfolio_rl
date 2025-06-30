@@ -1,0 +1,28 @@
+# ==== Model ====
+model = "mlp"
+input_dim = 5
+hidden_dim = 64
+output_dim = 1
+dropout = 0.0
+bidirectional = false
+num_layers = 5
+
+# ==== Data ====
+seq_len = 30
+horizon = 1
+dataset_size = 1000
+transforms = []
+dataset_name = ""
+window_size = 0
+
+# ==== Training ====
+epochs = 10
+batch_size = 32
+lr = 0.001
+loss = "mse"
+metric = "mae"
+optimizer = "adam"
+patience = 50
+
+# ==== Misc ====
+force_cpu = false
