@@ -19,3 +19,6 @@ links.txt
 
 #gits
 .git*
+
+#ipy
+*.ipynb
