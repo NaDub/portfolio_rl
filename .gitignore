@@ -13,3 +13,9 @@ Dockerfile
 
 # pdf
 *.pdf
+
+# links
+links.txt
+
+#gits
+.git*
