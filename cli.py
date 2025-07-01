@@ -9,7 +9,7 @@ def load_config(*paths):
         config.update(cfg)
     return SimpleNamespace(**config)
 
-def get_parser():
+def get_args():
     parser = argparse.ArgumentParser(description="Training time series model")
     parser.add_argument('--type', type=str, default='DL', help='RL or DL')
     parser.add_argument('--mode', type=str, default='train')
