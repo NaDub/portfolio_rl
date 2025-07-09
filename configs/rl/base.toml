@@ -10,9 +10,10 @@ ou_sigma = 0.2
 ou_mu = 0.0
 
 # ==== Model ====
-hidden1 = 400
-hidden2 = 300
+hidden1 = 40
+hidden2 = 30
 init_w = 0.003
+dropout = 0.0
 
 # ==== Optimization ====
 rate = 0.001         # critic learning rate
@@ -22,7 +23,7 @@ tau = 0.001          # target network update rate
 
 # ==== Training ====
 mode = "train"       # options: train / test
-train_iter = 200000
+train_iter = 200
 warmup = 100
 bsize = 64
 rmsize = 6000000     # replay memory size

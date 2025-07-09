@@ -10,7 +10,7 @@ horizon = 1
 dataset_size = 1000
 
 # ==== Training ====
-epochs = 10
+epochs = 250
 batch_size = 32
 lr = 0.001
 loss = "mse"

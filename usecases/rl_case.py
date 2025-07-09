@@ -5,7 +5,7 @@ from rl.util import get_output_folder
 from experiments.eval import evaluate_rl
 from training.train_loop import train_rl
 
-import gym
+import gymnasium as gym
 import numpy as np
 import os
 
@@ -16,9 +16,7 @@ class RLUseCase:
         self.agent = None
         self.evaluator = None
 
-    def _setup(self):
-        gym.undo_logger_setup()
-        
+    def _setup(self):        
         # Output path
         self.config.output = get_output_folder(self.config.output, self.config.env)
         if self.config.resume == 'default':
@@ -47,14 +45,15 @@ class RLUseCase:
     def train(self):
         self._setup()
         train_rl(
-            self.config.train_iter,
-            self.agent,
-            self.env,
-            self.evaluator,
-            self.config.validate_steps,
-            self.config.output,
+            num_iterations=self.config.train_iter,
+            agent=self.agent,
+            env=self.env,
+            evaluate=self.evaluator,
+            validate_steps=self.config.validate_steps,
+            output=self.config.output,
             max_episode_length=self.config.max_episode_length,
-            debug=self.config.debug
+            debug=self.config.debug,
+            config=self.config
         )
 
     def test(self):

@@ -10,7 +10,9 @@ class Critic(BaseModel):
     Takes both state and action as input, processes state first, then
     concatenates with action before final prediction.
     """
-    def __init__(self, config):
+    def __init__(self, config, nb_action, nb_states):
+        self.nb_action = nb_action
+        self.nb_states = nb_states
         super().__init__(config)
         self.init_weights(self.config.init_w)
 
@@ -27,12 +29,12 @@ class Critic(BaseModel):
 
     def build_backbone(self):
         return ConcatDenseBlock(
-            state_dim=self.config.input_dim,
-            action_dim=self.config.action_dim,
-            hidden_dim=self.config.hidden_dim,
+            state_dim=self.nb_states,
+            action_dim=self.nb_action,
+            hidden_dim=self.config.hidden2,
             dropout=self.config.dropout
         )
 
     def build_head(self):
-        return nn.Linear(self.config.hidden_dim, 1)
+        return nn.Linear(self.config.hidden2, 1)
     

@@ -16,27 +16,27 @@ class Evaluator(object):
     def __call__(self, env, policy, debug=False, visualize=False, save=True):
 
         self.is_training = False
-        observation = None
+        obs = None
         result = []
 
         for episode in range(self.num_episodes):
 
             # reset at the start of episode
-            observation = env.reset()
+            obs = env.reset()
             episode_steps = 0
             episode_reward = 0.
                 
-            assert observation is not None
+            assert obs is not None
 
             # start episode
-            done = False
-            while not done:
+            terminated = False
+            while not terminated:
                 # basic operation, action ,reward, blablabla ...
-                action = policy(observation)
+                action = policy(obs)
 
-                observation, reward, done, info = env.step(action)
+                obs, reward, terminated, truncated, info = env.step(action) #obs, reward, terminated, truncated, info
                 if self.max_episode_length and episode_steps >= self.max_episode_length -1:
-                    done = True
+                    terminated = True
                 
                 if visualize:
                     env.render(mode='human')

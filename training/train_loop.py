@@ -114,13 +114,13 @@ def train_rl(num_iterations, agent, env,  evaluate, validate_steps, output, conf
             action = agent.select_action(observation)
         
         # env response with next_observation, reward, terminate_info
-        observation2, reward, done, info = env.step(action)
-        observation2 = deepcopy(observation2)
+        obs, reward, terminated, truncated, info = env.step(action)
+        obs = deepcopy(obs)
         if max_episode_length and episode_steps >= max_episode_length -1:
-            done = True
+            terminated = True
 
         # agent observe and update policy
-        agent.observe(reward, observation2, done)
+        agent.observe(reward, obs, terminated)
         if step > config.warmup :
             agent.update_policy()
         
@@ -138,9 +138,9 @@ def train_rl(num_iterations, agent, env,  evaluate, validate_steps, output, conf
         step += 1
         episode_steps += 1
         episode_reward += reward
-        observation = deepcopy(observation2)
+        observation = deepcopy(obs)
 
-        if done: # end of episode
+        if terminated: # end of episode
             if debug: prGreen('#{}: episode_reward:{} steps:{}'.format(episode,episode_reward,step))
 
             agent.memory.append(

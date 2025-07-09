@@ -24,17 +24,17 @@ class DDPG(object):
         self.nb_actions= nb_actions
         
         # Create Actor and Critic Network
-        net_cfg = {
-            'hidden1':args.hidden1, 
-            'hidden2':args.hidden2, 
-            'init_w':args.init_w
-        }
-        self.actor = Actor(self.nb_states, self.nb_actions, **net_cfg)
-        self.actor_target = Actor(self.nb_states, self.nb_actions, **net_cfg)
+        # net_cfg = {
+        #     'hidden1':args.hidden1, 
+        #     'hidden2':args.hidden2, 
+        #     'init_w':args.init_w
+        # }
+        self.actor = Actor(nb_states=self.nb_states, nb_action=self.nb_actions, config=args)
+        self.actor_target = Actor(nb_states=self.nb_states, nb_action=self.nb_actions, config=args)
         self.actor_optim  = Adam(self.actor.parameters(), lr=args.prate)
 
-        self.critic = Critic(self.nb_states, self.nb_actions, **net_cfg)
-        self.critic_target = Critic(self.nb_states, self.nb_actions, **net_cfg)
+        self.critic = Critic(nb_states=self.nb_states, nb_action=self.nb_actions, config=args)
+        self.critic_target = Critic(nb_states=self.nb_states, nb_action=self.nb_actions, config=args)
         self.critic_optim  = Adam(self.critic.parameters(), lr=args.rate)
 
         hard_update(self.actor_target, self.actor) # Make sure target is with the same weight
@@ -122,8 +122,10 @@ class DDPG(object):
         return action
 
     def select_action(self, s_t, decay_epsilon=True):
+        print("s_t =", s_t)
+        print("type:", type(s_t))
         action = to_numpy(
-            self.actor(to_tensor(np.array([s_t])))
+            self.actor(to_tensor(np.array([s_t[0]])))  # [0] temporary fix
         ).squeeze(0)
         action += self.is_training*max(self.epsilon, 0)*self.random_process.sample()
         action = np.clip(action, -1., 1.)
